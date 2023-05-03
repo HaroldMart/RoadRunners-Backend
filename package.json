@@ -1,9 +1,22 @@
 {
   "dependencies": {
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "mongoose": "^7.1.0",
     "morgan": "^1.10.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"
-  }
+  },
+  "name": "roadrunners-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npx nodemon src/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
