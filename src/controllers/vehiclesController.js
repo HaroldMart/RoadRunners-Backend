@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 const model = require("../models/Mvehicles");
 
 const listVehicles = (res) => {
@@ -83,18 +82,6 @@ const deleteVehicle = (req, res) => {
       res.send(error);
     });
 };
-=======
-const model = require('../models/Mvehicles')
-
-const listVehicules = (req, res) => {
-    model.find().then((data) => {
-        res.json(data)
-    }).catch((error) => {
-        console.log(error);
-        res.send(error)
-    })
-}
->>>>>>> 16795827fa18303cb26493998c1cbf0904af4dc6
 
 module.exports = {
   listVehicles,
