@@ -1,22 +1,33 @@
+require("../controllers/vehiclesController");
 //routes
-const express = require('express');
+const express = require("express");
+const {
+  listVehicles,
+  getVehicle,
+  postVehicle,
+  putVehicle,
+  deleteVehicle,
+} = require("../controllers/vehiclesController");
 const router = express.Router();
 
-router.get('/', (req, res) => {
-    res.send('Hello get!');
+router.get("/", (req, res) => {
+  listVehicles(res);
 });
 
-router.post('/', (req, res) => {
-    res.send('Hello post!');
+router.get("/:id", (req, res) => {
+  getVehicle(req, res);
 });
 
-router.put('/', (req, res) => {
-    res.send('Hello put!');
+router.post("/", (req, res) => {
+  postVehicle(req, res);
 });
 
-router.delete('/', (req, res) => {
-    res.send('Hello delete!');
+router.put("/", (req, res) => {
+  putVehicle(req, res);
 });
 
+router.delete("/", (req, res) => {
+  deleteVehicle(req, res);
+});
 
 module.exports = router;
