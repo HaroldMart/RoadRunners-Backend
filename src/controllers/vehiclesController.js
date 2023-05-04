@@ -1,5 +1,12 @@
+const model = require('../models/Mvehicles')
+
 const listVehicules = (req, res) => {
-    res.send('hello world')
+    model.find().then((data) => {
+        res.json(data)
+    }).catch((error) => {
+        console.log(error);
+        res.send(error)
+    })
 }
 
 module.exports = {

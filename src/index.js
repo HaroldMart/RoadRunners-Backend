@@ -1,15 +1,13 @@
 //requires
 const express = require('express');
 const morgan = require('morgan');
-const IniBD = require('../config/db')
+const dotenv = require('dotenv').config();
 const path = require('path'); 
+const mongoose = require('mongoose');
 const vehiculesRoutes = require('./routes/vehicles')
-
-//variables
+const URI = process.env.URI;
 const app = express();
-const port = 3000;
-
-//settings
+const port = 2000;
 
 
 //Middlewares
@@ -18,9 +16,14 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 
+//mongoose connection
+mongoose.connect(URI).then(() => {
+    console.log('Conection succeded');
+}).catch((error) => {
+    console.log(`Conection failed: ${error}`);
+})
+
 //listen the server
 app.listen(port, (req, res) => {
     console.log(`Server on port ${port}`);
 })
-
-IniBD();

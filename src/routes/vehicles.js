@@ -1,9 +1,11 @@
+require('../controllers/vehiclesController')
 //routes
 const express = require('express');
+const { listVehicules } = require('../controllers/vehiclesController');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    res.send('Hello get!');
+    listVehicules(req, res);
 });
 
 router.post('/', (req, res) => {
@@ -17,6 +19,5 @@ router.put('/', (req, res) => {
 router.delete('/', (req, res) => {
     res.send('Hello delete!');
 });
-
 
 module.exports = router;
