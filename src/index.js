@@ -4,7 +4,7 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const vehiculesRoutes = require('./routes/vehicles')
-const URI = process.env.URI;
+const URI = process.env.URI; //The global variable for connection
 const app = express();
 const port = 2000;
 

@@ -1,5 +1,6 @@
 const model = require("../models/Mvehicles");
 
+//Show the list of data in the database
 const listVehicles = (res) => {
   model
     .find()
@@ -12,6 +13,7 @@ const listVehicles = (res) => {
     });
 };
 
+//Show the data in the database by id
 const getVehicle = (req, res) => {
   const id = req.params.id;
   model
@@ -25,12 +27,13 @@ const getVehicle = (req, res) => {
     });
 };
 
+//Insert data in the database
 const postVehicle = (req, res) => {
-  const { marca, ruedas, tipo } = req.body;
+  const { Marca, Ruedas, Tipo } = req.body;
   const car = new model({
-    Marca: marca,
-    Ruedas: ruedas,
-    Tipo: tipo,
+    Marca: Marca,
+    Ruedas: Ruedas,
+    Tipo: Tipo,
   });
 
   car
@@ -46,17 +49,18 @@ const postVehicle = (req, res) => {
     });
 };
 
+//Update data in the database
 const putVehicle = (req, res) => {
   const id = req.params.id;
   console.log(id);
-  const { marca, ruedas, tipo } = req.body;
+  const { Marca, Ruedas, Tipo } = req.body;
   model
     .updateOne(
       { _id: id },
       {
-        Marca: marca,
-        Ruedas: ruedas,
-        Tipo: tipo,
+        Marca: Marca,
+        Ruedas: Ruedas,
+        Tipo: Tipo,
       }
     )
     .then((data) => {
@@ -69,6 +73,7 @@ const putVehicle = (req, res) => {
     });
 };
 
+//Delete data in the database
 const deleteVehicle = (req, res) => {
   const id = req.params.id;
   model
