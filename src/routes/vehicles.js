@@ -11,7 +11,7 @@ const {
 } = require("../controllers/vehiclesController");
 
 router.get('/', (req, res) => {
-    listVehicles(req, res);
+    listVehicles(res);
 });
 
 router.get("/:id", (req, res) => {
