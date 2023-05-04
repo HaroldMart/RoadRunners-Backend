@@ -1,6 +1,6 @@
 # RoadRunners-Backend
 
-This is a simple API with the basic methods to show, add, edit and delete content in a MongoDB database.
+This is a simple API made in Express, with the basic methods to show, add, edit and delete content in a MongoDB database.
 
 ### npm modules used
 
