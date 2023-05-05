@@ -22,5 +22,6 @@ mongoose.connect(URI).then(() => {
 
 //listen the server
 app.listen(port, (req, res) => {
-    console.log(`Server on port ${port}`);
+    console.log(`Server on http://localhost:${port}`);
 })
+
