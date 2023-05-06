@@ -30,27 +30,27 @@ const getVehicle = (req, res) => {
 //Insert data in the database
 const postVehicle = (req, res) => {
   const {
-    owner_email,
-    brand,
-    type,
-    model,
-    condition,
-    fuel,
-    year,
-    price,
-    location
+    Owner_email,
+    Brand,
+    Type,
+    Model,
+    Condition,
+    Fuel,
+    Year,
+    Price,
+    Location,
   } = req.body;
 
   const car = new model({
-    owner_email: owner_email,
-    brand: brand,
-    type: type,
-    model: model,
-    condition: condition,
-    fuel: fuel,
-    year: year,
-    price: price,
-    location: location
+    owner_email: Owner_email,
+    brand: Brand,
+    type: Type,
+    model: Model,
+    condition: Condition,
+    fuel: Fuel,
+    year: Year,
+    price: Price,
+    location: Location,
   });
 
   car
@@ -71,29 +71,29 @@ const putVehicle = (req, res) => {
   const id = req.params.id;
   console.log(id);
   const {
-    owner_email,
-    brand,
-    type,
-    model,
-    condition,
-    fuel,
-    year,
-    price,
-    location
+    Owner_email,
+    Brand,
+    Type,
+    Model,
+    Condition,
+    Fuel,
+    Year,
+    Price,
+    Location,
   } = req.body;
   model
     .updateOne(
       { _id: id },
       {
-        owner_email: owner_email,
-        brand: brand,
-        type: type,
-        model: model,
-        condition: condition,
-        fuel: fuel,
-        year: year,
-        price: price,
-        location: location,
+        owner_email: Owner_email,
+        brand: Brand,
+        type: Type,
+        model: Model,
+        condition: Condition,
+        fuel: Fuel,
+        year: Year,
+        price: Price,
+        location: Location,
       }
     )
     .then((data) => {
