@@ -6,9 +6,13 @@ const mongoose = require('mongoose');
 const vehiculesRoutes = require('./routes/vehicles')
 const URI = process.env.URI; //The global variable for connection
 const app = express();
+const cors = require('cors');
 const port = 2000;
 
+const list = ['http://localhost:4200'];
+
 //Middlewares
+app.use(cors({origin : list}));
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(vehiculesRoutes);
