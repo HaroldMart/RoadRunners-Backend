@@ -39,6 +39,7 @@ const postVehicle = (req, res) => {
     Year,
     Price,
     Location,
+    Img
   } = req.body;
 
   const car = new model({
@@ -51,6 +52,7 @@ const postVehicle = (req, res) => {
     year: Year,
     price: Price,
     location: Location,
+    img: Img
   });
 
   car
@@ -80,6 +82,7 @@ const putVehicle = (req, res) => {
     Year,
     Price,
     Location,
+    Img
   } = req.body;
   model
     .updateOne(
@@ -94,6 +97,7 @@ const putVehicle = (req, res) => {
         year: Year,
         price: Price,
         location: Location,
+        img: Img
       }
     )
     .then((data) => {

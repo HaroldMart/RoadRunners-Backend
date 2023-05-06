@@ -11,6 +11,7 @@ const vehicles = new Schema({
   year: String,
   price: String,
   location: String,
+  img: String
 });
 
 //Export a model named cars, based in the vehicles schema
