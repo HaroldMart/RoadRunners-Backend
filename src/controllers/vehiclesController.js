@@ -28,6 +28,9 @@ const getVehicle = (req, res) => {
 };
 
 //Insert data in the database
+// If you want to send data to the database, you have to send the data as 
+// json and the fields of the json must be with the first 
+// letter uppercase while the data model is lowercase.
 const postVehicle = (req, res) => {
   const {
     Owner_email,

@@ -32,6 +32,12 @@ http://localhost:2000/
 http://localhost:2000/645308ce6bf01ae50fce5590
 ```
 
+##### Sending data 
+
+```
+http://localhost:2000/insert
+```
+
 ##### Editing data
 ```
 http://localhost:2000/update/645308ce6bf01ae50fce5590
