@@ -49,6 +49,7 @@ http://localhost:2000/delete/645308ce6bf01ae50fce5590
 ```
 
 ## Screenshots preview of the frontend app
+I made this project in collaboration with my partner [Tcriss frontend repository](https://github.com/Tcriss/RoadRunners-Front/).
 
 ![image](https://github.com/HaroldMart/RoadRunners-Backend/assets/93040571/f21dac90-a11a-4e54-8227-23e5acecf126)
 ![image](https://github.com/HaroldMart/RoadRunners-Backend/assets/93040571/ba2744e2-2f43-42c6-b683-dd380b727c17)
