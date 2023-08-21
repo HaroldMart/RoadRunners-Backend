@@ -9,7 +9,7 @@ const app = express();
 const cors = require('cors');
 const port = 2000;
 
-const list = ['http://localhost:4200'];
+const list = ['http://localhost:4200', 'https://road-runners-front.vercel.app'];
 
 //Middlewares
 app.use(cors({origin : list}));
