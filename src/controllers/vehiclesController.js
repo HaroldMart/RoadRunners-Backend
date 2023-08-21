@@ -19,7 +19,7 @@ const getVehicle = (req, res) => {
   model
     .find({ _id: id })
     .then((data) => {
-      res.json(data);
+      res.json(data[0]);
     })
     .catch((error) => {
       console.log(error);
