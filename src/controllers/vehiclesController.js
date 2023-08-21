@@ -17,7 +17,24 @@ const listVehicles = (res) => {
 const getVehicle = (req, res) => {
   const id = req.params.id;
   model
-    .find({ _id: id })
+    .findById(id)
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.send(error);
+    });
+};
+
+const searchVehicle = (req, res) => {
+  
+};
+
+const searchByBrand = (req, res) => {
+  const brand = req.params.brand;
+  model
+    .find({ brand: brand })
     .then((data) => {
       res.json(data);
     })
@@ -131,6 +148,7 @@ const deleteVehicle = (req, res) => {
 module.exports = {
   listVehicles,
   getVehicle,
+  searchByBrand,
   postVehicle,
   putVehicle,
   deleteVehicle,

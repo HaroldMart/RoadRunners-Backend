@@ -5,6 +5,7 @@ const router = express.Router();
 const {
   listVehicles,
   getVehicle,
+  searchByBrand,
   postVehicle,
   putVehicle,
   deleteVehicle,
@@ -16,6 +17,10 @@ router.get("/", (req, res) => {
 
 router.get("/:id", (req, res) => {
   getVehicle(req, res);
+});
+
+router.get("/brand/:brand?", (req, res) => {
+  searchByBrand(req, res);
 });
 
 router.post("/insert/", (req, res) => {
