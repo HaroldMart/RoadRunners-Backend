@@ -1,15 +1,22 @@
-//requires
-require('dotenv').config(); //A document .env in the project with the variable for connection
+// ---------------------- requires and variables --------------------------
+
+//A document .env in he project with the variable for connection
+require('dotenv').config(); 
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const vehiculesRoutes = require('./routes/vehicles')
-const URI = process.env.URI; //The global variable for connection
+
+//The global variable for connection
+const URI = process.env.URI;
+const DEV_HOST = process.env.DEV_HOST;
+const FRONT_HOST = process.env.FRONT_HOST; 
 const app = express();
 const cors = require('cors');
-const port = 2000;
+const PORT  = process.env.PORT || 3000;
 
-const list = ['http://localhost:4200', 'https://road-runners-front.vercel.app'];
+//The list of the host
+const list = [DEV_HOST, FRONT_HOST];
 
 //Middlewares
 app.use(cors({origin : list}));
@@ -17,6 +24,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(vehiculesRoutes);
 
+// ---------------------- connection --------------------------
 //mongoose connection
 mongoose.connect(URI).then(() => {
     console.log('Conection succeded');
@@ -26,6 +34,5 @@ mongoose.connect(URI).then(() => {
 
 //listen the server
 app.listen(port, (req, res) => {
-    console.log(`Server on ${port}`);
+    console.log(`Server on ${PORT}`);
 })
-
