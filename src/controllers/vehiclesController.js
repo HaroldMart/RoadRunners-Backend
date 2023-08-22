@@ -1,34 +1,63 @@
 const model = require("../models/Mvehicles");
+let responseCode = 200;
+let responseMessage = "OK";
 
-//Show the list of data in the database
+function handleErrorResponse(res, error) {
+  switch (error.name) {
+    case "ValidationError":
+      errorCode = 400;
+      errorMessage = "Validation Error";
+      break;
+    case "CastError":
+      errorCode = 404;
+      errorMessage = "Not Found";
+      break;
+    case "MongoError":
+      errorCode = 409;
+      errorMessage = "Conflict with existing resource";
+      break;
+    case "SyntaxError":
+      errorCode = 400;
+      errorMessage = "Invalid syntax in request";
+      break;
+    case "UnauthorizedError":
+      errorCode = 401;
+      errorMessage = "Unauthorized access";
+      break;
+    case "JsonWebTokenError":
+      errorCode = 401;
+      errorMessage = "Invalid token";
+      break;
+    default:
+      errorCode = 500;
+      errorMessage = "Internal Server Error";
+  }
+  res.status(errorCode).send({ message: errorMessage, error: error });
+}
+
 const listVehicles = (res) => {
   model
     .find()
     .then((data) => {
-      res.json(data);
+      res.status(responseCode).json(data);
     })
     .catch((error) => {
       console.log(error);
-      res.send(error);
+      handleErrorResponse(res, error);
     });
 };
 
-//Show the data in the database by id
 const getVehicle = (req, res) => {
   const id = req.params.id;
   model
     .findById(id)
     .then((data) => {
-      res.json(data);
+      res.status(responseCode).json(data);
     })
     .catch((error) => {
       console.log(error);
-      res.send(error);
+      handleErrorResponse(res, error);
     });
-};
-
-const searchVehicle = (req, res) => {
-  
 };
 
 const searchByBrand = (req, res) => {
@@ -36,18 +65,14 @@ const searchByBrand = (req, res) => {
   model
     .find({ brand: brand })
     .then((data) => {
-      res.json(data);
+      res.status(responseCode).json(data);
     })
     .catch((error) => {
       console.log(error);
-      res.send(error);
+      handleErrorResponse(res, error);
     });
 };
 
-//Insert data in the database
-// If you want to send data to the database, you have to send the data as 
-// json and the fields of the json must be with the first 
-// letter uppercase while the data model is lowercase.
 const postVehicle = (req, res) => {
   const {
     Owner_email,
@@ -78,20 +103,18 @@ const postVehicle = (req, res) => {
   car
     .save()
     .then((data) => {
-      console.log(data);
       console.log("Vehiculo Guardado");
-      res.json([data, "Guardado correctamente"]);
+      responseMessage = "Guardado correctamente"
+      res.status(responseCode).send({ message: responseMessage, data: data });
     })
     .catch((error) => {
       console.log(error);
-      res.send(error);
+      handleErrorResponse(res, error);
     });
 };
 
-//Update data in the database
 const putVehicle = (req, res) => {
   const id = req.params.id;
-  console.log(id);
   const {
     Owner_email,
     Brand,
@@ -122,26 +145,27 @@ const putVehicle = (req, res) => {
     )
     .then((data) => {
       console.log("Vehiculo Actualizado");
-      res.json([data, "Actualizado correctamente"]);
+      responseMessage = "Actualizado correctamente"
+      res.status(responseCode).send({ message: responseMessage, data: data });
     })
     .catch((error) => {
       console.log(error);
-      res.send(error);
+      handleErrorResponse(res, error);
     });
 };
 
-//Delete data in the database
 const deleteVehicle = (req, res) => {
   const id = req.params.id;
   model
     .deleteOne({ _id: id })
     .then((data) => {
       console.log("Vehiculo Eliminado");
-      res.json([data, "Eliminado correctamente"]);
+      responseMessage = "Eliminado correctamente"
+      res.status(responseCode).send({ message: responseMessage, data: data });
     })
     .catch((error) => {
       console.log(error);
-      res.send(error);
+      handleErrorResponse(res, error);
     });
 };
 
