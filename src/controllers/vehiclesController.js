@@ -1,5 +1,7 @@
 const model = require("../models/Mvehicles");
 let responseCode = 200;
+const fs = require('fs');
+const path = require('path');
 let responseMessage = "OK";
 
 function handleErrorResponse(res, error) {
@@ -84,7 +86,6 @@ const postVehicle = (req, res) => {
     Year,
     Price,
     Location,
-    Img
   } = req.body;
 
   const car = new model({
@@ -97,7 +98,10 @@ const postVehicle = (req, res) => {
     year: Year,
     price: Price,
     location: Location,
-    img: Img
+    img: {
+      data: req.file.buffer,
+      contentType: req.file.mimetype
+  }
   });
 
   car

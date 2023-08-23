@@ -6,6 +6,7 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const vehiculesRoutes = require('./routes/vehicles')
+const multer = require('multer');
 
 //The global variable for connection
 const API_KEY = process.env.API_KEY;
@@ -13,6 +14,7 @@ const URI = process.env.URI;
 const LOCAL = process.env.LOCAL;
 const DEV_HOST = process.env.DEV_HOST;
 const FRONT_HOST = process.env.FRONT_HOST; 
+var upload = multer();
 const app = express();
 const cors = require('cors');
 const PORT  = process.env.PORT || 3000;
@@ -34,6 +36,7 @@ app.use(cors({origin : allowedCors}));
 app.use(authMiddleware)
 app.use(morgan('dev'));
 app.use(express.json());
+app.use(upload.array('Img'));
 app.use(vehiculesRoutes);
 
 // ---------------------- connection --------------------------
