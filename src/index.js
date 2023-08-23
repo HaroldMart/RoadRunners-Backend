@@ -10,6 +10,7 @@ const vehiculesRoutes = require('./routes/vehicles')
 //The global variable for connection
 const API_KEY = process.env.API_KEY;
 const URI = process.env.URI;
+const LOCAL = process.env.LOCAL;
 const DEV_HOST = process.env.DEV_HOST;
 const FRONT_HOST = process.env.FRONT_HOST; 
 const app = express();
@@ -26,7 +27,7 @@ const api_Key = req.headers["api_key"];
 }
 
 //The list of the host
-const allowedCors = [DEV_HOST, FRONT_HOST];
+const allowedCors = [LOCAL, DEV_HOST, FRONT_HOST];
 
 //Middlewares
 app.use(cors({origin : allowedCors}));
