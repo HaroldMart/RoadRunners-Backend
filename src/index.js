@@ -29,7 +29,7 @@ const api_Key = req.headers["api_key"];
 }
 
 //The list of the host
-const allowedCors = [LOCAL, DEV_HOST, FRONT_HOST];
+const allowedCors = [LOCAL, DEV_HOST, FRONT_HOST, HOST_TESTING];
 
 //Middlewares
 app.use(cors({origin : allowedCors}));
