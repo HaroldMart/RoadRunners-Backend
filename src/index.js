@@ -30,7 +30,7 @@ const api_Key = req.headers["api_key"];
 }
 
 //The list of the host
-const allowedCors = [LOCAL, DEV_HOST, FRONT_HOST, HOST_TESTING];
+const allowedCors = [DEV_HOST, FRONT_HOST, HOST_TESTING, LOCAL];
 
 //Middlewares
 app.use(cors({origin : allowedCors}));
