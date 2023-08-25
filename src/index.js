@@ -12,7 +12,6 @@ const multer = require('multer');
 const API_KEY = process.env.API_KEY;
 const URI = process.env.URI;
 const LOCAL = process.env.LOCAL;
-const DEV_HOST = process.env.DEV_HOST;
 const FRONT_HOST = process.env.FRONT_HOST;
 const HOST_TESTING = process.env.HOST_TESTING;  
 var upload = multer();
@@ -30,7 +29,7 @@ const api_Key = req.headers["api_key"];
 }
 
 //The list of the host
-const allowedCors = [LOCAL, DEV_HOST, FRONT_HOST, HOST_TESTING];
+const allowedCors = [LOCAL, FRONT_HOST, HOST_TESTING];
 
 //Middlewares
 app.use(cors({origin : allowedCors}));
