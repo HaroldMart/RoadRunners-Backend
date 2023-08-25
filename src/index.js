@@ -13,6 +13,7 @@ const API_KEY = process.env.API_KEY;
 const URI = process.env.URI;
 const LOCAL = process.env.LOCAL;
 const FRONT_HOST = process.env.FRONT_HOST;
+const DEV_HOST = process.env.DEV_HOST;
 const HOST_TESTING = process.env.HOST_TESTING;  
 var upload = multer();
 const app = express();
