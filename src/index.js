@@ -1,54 +1,33 @@
-// ---------------------- requires and variables --------------------------
-
-//A document .env in he project with the variable for connection
 require('dotenv').config();
+
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
-const vehiculesRoutes = require('./routes/vehicles')
-const multer = require('multer');
+const cors = require('cors');
+const auth = require('./middlewares/auth');
+const vehiclesRoute = require('./routes/vehicle.route');
 
-//The global variable for connection
-const API_KEY = process.env.API_KEY;
 const URI = process.env.URI;
 const LOCAL = process.env.LOCAL;
 const FRONT_HOST = process.env.FRONT_HOST;
 const DEV_HOST = process.env.DEV_HOST;
-const HOST_TESTING = process.env.HOST_TESTING;  
-var upload = multer();
-const app = express();
-const cors = require('cors');
+const HOST_TESTING = process.env.HOST_TESTING; 
+const HOST = process.env.HOST;  
 const PORT  = process.env.PORT || 3000;
-const authMiddleware = (req, res, next) => {
-const api_Key = req.headers["api_key"];
 
-    if(api_Key === API_KEY) {
-        next();
-    } else {
-        res.status(401).send({ message: 'Unauthorized' });
-    }
-}
-
-//The list of the host
-const allowedCors = [DEV_HOST, FRONT_HOST, HOST_TESTING, LOCAL];
-
-//Middlewares
-app.use(cors({origin : allowedCors}));
-app.use(authMiddleware)
+const app = express();
+app.use(cors({origin : [DEV_HOST, FRONT_HOST, HOST_TESTING, LOCAL]}));
+app.use(auth);
 app.use(morgan('dev'));
 app.use(express.json());
-app.use(upload.array('Img'));
-app.use(vehiculesRoutes);
+app.use(vehiclesRoute);
 
-// ---------------------- connection --------------------------
-//mongoose connection
 mongoose.connect(URI).then(() => {
     console.log('Conection succeded');
 }).catch((error) => {
     console.log(`Conection failed: ${error}`);
 })
 
-//listen the server
 app.listen(PORT, (req, res) => {
-    console.log(`Server on ${PORT}`);
+    console.log(`Server on ${HOST}:${PORT}`);
 })
