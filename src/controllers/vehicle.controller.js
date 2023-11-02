@@ -1,7 +1,6 @@
-const model = require("../models/Mvehicles");
+const sharp = require('sharp');
+const vehicleModel = require("../models/vehicle.model");
 let responseCode = 200;
-const fs = require('fs');
-const path = require('path');
 let responseMessage = "OK";
 
 function handleErrorResponse(res, error) {
@@ -38,7 +37,7 @@ function handleErrorResponse(res, error) {
 }
 
 const listVehicles = (res) => {
-  model
+  vehicleModel
     .find()
     .then((data) => {
       res.status(responseCode).json(data);
@@ -51,7 +50,7 @@ const listVehicles = (res) => {
 
 const getVehicle = (req, res) => {
   const id = req.params.id;
-  model
+  vehicleModel
     .findById(id)
     .then((data) => {
       res.status(responseCode).json(data);
@@ -64,7 +63,7 @@ const getVehicle = (req, res) => {
 
 const searchByBrand = (req, res) => {
   const brand = req.params.brand;
-  model
+  vehicleModel
     .find({ brand: brand })
     .then((data) => {
       res.status(responseCode).json(data);
@@ -76,45 +75,29 @@ const searchByBrand = (req, res) => {
 };
 
 const postVehicle = (req, res) => {
-  const {
-    Owner_email,
-    Brand,
-    Type,
-    Model,
-    Condition,
-    Fuel,
-    Year,
-    Price,
-    Location,
-  } = req.body;
+  let vehicle = vehicleModel();
 
-  const car = new model({
-    owner_email: Owner_email,
-    brand: Brand,
-    type: Type,
-    model: Model,
-    condition: Condition,
-    fuel: Fuel,
-    year: Year,
-    price: Price,
-    location: Location,
-    img: {
-      data: req.file.buffer,
-      contentType: req.file.mimetype
-  }
+  vehicle.owner_email = req.body.owner_email;
+  vehicle.brand = req.body.brand;
+  vehicle.type = req.body.type;
+  vehicle.model = req.body.model;
+  vehicle.condition = req.body.condition;
+  vehicle.fuel = req.body.fuel;
+  vehicle.year = req.body.year;
+  vehicle.price = req.body.price,
+  vehicle.location = req.body.location;
+  vehicle.images = req.files.map(file => ({
+      data: file.buffer,
+      contentType: file.mimetype,
+  }));
+  vehicle.save().then(data => {
+    console.log("Vehiculo Guardado");
+    responseMessage = "Guardado correctamente"
+    res.status(responseCode).send({ message: responseMessage });
+  }).catch(error => {
+    console.log(error);
+    handleErrorResponse(res, error);
   });
-
-  car
-    .save()
-    .then((data) => {
-      console.log("Vehiculo Guardado");
-      responseMessage = "Guardado correctamente"
-      res.status(responseCode).send({ message: responseMessage, data: data });
-    })
-    .catch((error) => {
-      console.log(error);
-      handleErrorResponse(res, error);
-    });
 };
 
 const putVehicle = (req, res) => {
@@ -131,7 +114,7 @@ const putVehicle = (req, res) => {
     Location,
     Img
   } = req.body;
-  model
+  vehicleModel
     .updateOne(
       { _id: id },
       {
@@ -160,7 +143,7 @@ const putVehicle = (req, res) => {
 
 const deleteVehicle = (req, res) => {
   const id = req.params.id;
-  model
+  vehicleModel
     .deleteOne({ _id: id })
     .then((data) => {
       console.log("Vehiculo Eliminado");
