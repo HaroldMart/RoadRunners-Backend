@@ -8,7 +8,7 @@ const vehicles = new Schema({
   condition: String,
   fuel: String,
   year: String,
-  price: String,
+  price: Number,
   location: String,
   images: [
     {

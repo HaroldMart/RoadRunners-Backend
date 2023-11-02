@@ -93,7 +93,7 @@ const postVehicle = (req, res) => {
   vehicle.save().then(data => {
     console.log("Vehiculo Guardado");
     responseMessage = "Guardado correctamente"
-    res.status(responseCode).send({ message: responseMessage, saved: data});
+    res.status(responseCode).send({ message: responseMessage });
   }).catch(error => {
     console.log(error);
     handleErrorResponse(res, error);
