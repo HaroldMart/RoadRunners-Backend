@@ -15,7 +15,7 @@ router.get("/brand/:brand?", (req, res) => {
   searchByBrand(req, res);
 });
 
-router.post("/insert/", upload.array('image', 6) , (req, res, next) => {
+router.post("/insert/", upload.array('images', 7) , (req, res, next) => {
   postVehicle(req, res, next);
 });
 

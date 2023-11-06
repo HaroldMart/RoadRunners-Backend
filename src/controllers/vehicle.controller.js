@@ -84,7 +84,7 @@ const postVehicle = (req, res) => {
   vehicle.condition = req.body.condition;
   vehicle.fuel = req.body.fuel;
   vehicle.year = req.body.year;
-  vehicle.price = req.body.price,
+  vehicle.price = req.body.price.parseInt(),
   vehicle.location = req.body.location;
   vehicle.images = req.files.map(file => ({
       data: file.buffer,
