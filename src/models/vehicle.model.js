@@ -1,6 +1,5 @@
 const { Schema, model } = require("mongoose");
 
-//Schema for the vehicles
 const vehicles = new Schema({
   owner_email: String,
   brand: String,
@@ -9,14 +8,14 @@ const vehicles = new Schema({
   condition: String,
   fuel: String,
   year: String,
-  price: String,
+  price: Number,
   location: String,
-  img:
+  images: [
     {
-        data: Buffer,
-        contentType: String
+      data: Buffer,
+      contentType: String
     }
+  ],
 });
 
-//Export a model named cars, based in the vehicles schema
 module.exports = model("cars", vehicles);

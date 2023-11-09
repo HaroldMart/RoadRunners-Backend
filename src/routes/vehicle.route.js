@@ -1,16 +1,7 @@
-require("../controllers/vehiclesController");
-
-//routes
+const { listVehicles, getVehicle, searchByBrand, postVehicle, putVehicle, deleteVehicle } = require("../controllers/vehicle.controller");
 const express = require("express");
 const router = express.Router();
-const {
-  listVehicles,
-  getVehicle,
-  searchByBrand,
-  postVehicle,
-  putVehicle,
-  deleteVehicle,
-} = require("../controllers/vehiclesController");
+const upload = require('../middlewares/upload');
 
 router.get("/", (req, res) => {
   listVehicles(res);
@@ -24,8 +15,8 @@ router.get("/brand/:brand?", (req, res) => {
   searchByBrand(req, res);
 });
 
-router.post("/insert/", (req, res) => {
-  postVehicle(req, res);
+router.post("/insert/", upload.array('images', 7) , (req, res, next) => {
+  postVehicle(req, res, next);
 });
 
 router.put("/update/:id", (req, res) => {
