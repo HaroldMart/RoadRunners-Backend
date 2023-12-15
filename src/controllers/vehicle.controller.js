@@ -1,9 +1,9 @@
-const sharp = require('sharp');
-const vehicleModel = require("../models/vehicle.model");
+import vehicleModel from '../models/vehicle.model.js';
+
 let responseCode = 200;
 let responseMessage = "OK";
 
-function handleErrorResponse(res, error) {
+const handleErrorResponse = (res, error) => {
   switch (error.name) {
     case "ValidationError":
       errorCode = 400;
@@ -36,7 +36,7 @@ function handleErrorResponse(res, error) {
   res.status(errorCode).send({ message: errorMessage, error: error });
 }
 
-const listVehicles = (res) => {
+export const listVehicles = (res) => {
   vehicleModel
     .find()
     .then((data) => {
@@ -48,7 +48,7 @@ const listVehicles = (res) => {
     });
 };
 
-const getVehicle = (req, res) => {
+export const getVehicle = (req, res) => {
   const id = req.params.id;
   vehicleModel
     .findById(id)
@@ -61,7 +61,7 @@ const getVehicle = (req, res) => {
     });
 };
 
-const searchByBrand = (req, res) => {
+export const searchByBrand = (req, res) => {
   const brand = req.params.brand;
   vehicleModel
     .find({ brand: brand })
@@ -74,7 +74,7 @@ const searchByBrand = (req, res) => {
     });
 };
 
-const postVehicle = (req, res) => {
+export const postVehicle = (req, res) => {
   let vehicle = vehicleModel();
 
   vehicle.owner_email = req.body.owner_email;
@@ -100,7 +100,7 @@ const postVehicle = (req, res) => {
   });
 };
 
-const putVehicle = (req, res) => {
+export const putVehicle = (req, res) => {
   const id = req.params.id;
   const {
     Owner_email,
@@ -141,7 +141,7 @@ const putVehicle = (req, res) => {
     });
 };
 
-const deleteVehicle = (req, res) => {
+export const deleteVehicle = (req, res) => {
   const id = req.params.id;
   vehicleModel
     .deleteOne({ _id: id })
@@ -154,13 +154,4 @@ const deleteVehicle = (req, res) => {
       console.log(error);
       handleErrorResponse(res, error);
     });
-};
-
-module.exports = {
-  listVehicles,
-  getVehicle,
-  searchByBrand,
-  postVehicle,
-  putVehicle,
-  deleteVehicle,
 };

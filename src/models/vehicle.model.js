@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+import { Schema, model } from "mongoose";
 
 const vehicles = new Schema({
   owner_email: String,
@@ -18,4 +18,4 @@ const vehicles = new Schema({
   ],
 });
 
-module.exports = model("cars", vehicles);
+export default model("cars", vehicles);
