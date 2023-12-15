@@ -1,30 +1,32 @@
-const { listVehicles, getVehicle, searchByBrand, postVehicle, putVehicle, deleteVehicle } = require("../controllers/vehicle.controller");
-const express = require("express");
-const router = express.Router();
-const upload = require('../middlewares/upload');
+import { listVehicles, getVehicle, searchByBrand, postVehicle, putVehicle, deleteVehicle } from '../controllers/vehicle.controller.js';
+import express from 'express';
+import upload from '../middlewares/upload.js';
+import checkToken from '../middlewares/auth0.js';
 
-router.get("/", (req, res) => {
+const vehicleRoutes = express.Router();
+
+vehicleRoutes.get("/", (req, res) => {
   listVehicles(res);
 });
 
-router.get("/:id", (req, res) => {
+vehicleRoutes.get("/:id", (req, res) => {
   getVehicle(req, res);
 });
 
-router.get("/brand/:brand?", (req, res) => {
+vehicleRoutes.get("/brand/:brand?", (req, res) => {
   searchByBrand(req, res);
 });
 
-router.post("/insert/", upload.array('images', 7) , (req, res, next) => {
+vehicleRoutes.post("/insert/", checkToken, upload.array('images', 7) , (req, res, next) => {
   postVehicle(req, res, next);
 });
 
-router.put("/update/:id", (req, res) => {
+vehicleRoutes.put("/update/:id", checkToken, (req, res) => {
   putVehicle(req, res);
 });
 
-router.delete("/delete/:id", (req, res) => {
+vehicleRoutes.delete("/delete/:id", checkToken, (req, res) => {
   deleteVehicle(req, res);
 });
 
-module.exports = router;
+export default vehicleRoutes;
