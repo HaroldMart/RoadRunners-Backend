@@ -1,12 +1,13 @@
 import dotenv from 'dotenv';
-import { auth } from 'express-oauth2-jwt-bearer';
+import { auth, requiredScopes } from 'express-oauth2-jwt-bearer';
 
 dotenv.config();
 
-const checkToken = auth({
+export const readScope = requiredScopes('read: vehicles');
+export const deleteScope = requiredScopes('delete: vehicle');
+
+export const checkToken = auth({
     audience: 'https://roadrunners-api/',
     issuerBaseURL: process.env.DOMAIN,
-    tokenSigningAlg: 'HS256'
+    tokenSigningAlg: 'RS256'
 });
-
-export default checkToken;

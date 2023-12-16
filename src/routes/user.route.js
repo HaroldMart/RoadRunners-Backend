@@ -1,5 +1,5 @@
 import express from 'express';
-import checkToken from '../middlewares/auth0.js';
+import { checkToken } from '../middlewares/auth0.js';
 import { getUserInfo, editUser } from '../controllers/user.controller.js';
 
 const userRoutes = express.Router();
