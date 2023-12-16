@@ -78,8 +78,11 @@ export const searchByBrand = (req, res) => {
 
 export const postVehicle = (req, res) => {
   let vehicle = vehicleModel();
-
-  vehicle.portrait = req.file,
+  
+  vehicle.portrait = {
+    data: req.files['portrait'][0].buffer,
+    contentType: req.files['portrait'][0].mimetype
+  },
   vehicle.owner = req.body.owner;
   vehicle.owner_email = req.body.owner_email;
   vehicle.brand = req.body.brand;
@@ -90,7 +93,7 @@ export const postVehicle = (req, res) => {
   vehicle.year = req.body.year;
   vehicle.price = parseFloat(req.body.price);
   vehicle.location = req.body.location;
-  vehicle.images = req.files.map(file => ({
+  vehicle.images = req.files['images'].map(file => ({
       data: file.buffer,
       contentType: file.mimetype,
   }));
