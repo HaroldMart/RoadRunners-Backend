@@ -1,6 +1,11 @@
-const { Schema, model } = require("mongoose");
+import { Schema, model } from "mongoose";
 
 const vehicles = new Schema({
+  portrait: {
+    data: Buffer,
+    contentType: String
+  },
+  owner: String,
   owner_email: String,
   brand: String,
   type: String,
@@ -18,4 +23,4 @@ const vehicles = new Schema({
   ],
 });
 
-module.exports = model("cars", vehicles);
+export default model("cars", vehicles);
