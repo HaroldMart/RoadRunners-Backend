@@ -39,6 +39,7 @@ const handleErrorResponse = (res, error) => {
 export const listVehicles = (res) => {
   vehicleModel
     .find()
+    .select('-images')
     .then((data) => {
       res.status(responseCode).json(data);
     })
@@ -52,6 +53,7 @@ export const getVehicle = (req, res) => {
   const id = req.params.id;
   vehicleModel
     .findById(id)
+    .select('-portrait')
     .then((data) => {
       res.status(responseCode).json(data);
     })
@@ -77,6 +79,8 @@ export const searchByBrand = (req, res) => {
 export const postVehicle = (req, res) => {
   let vehicle = vehicleModel();
 
+  vehicle.portrait = req.file,
+  vehicle.owner = req.body.owner;
   vehicle.owner_email = req.body.owner_email;
   vehicle.brand = req.body.brand;
   vehicle.type = req.body.type;
@@ -143,6 +147,7 @@ export const putVehicle = (req, res) => {
 
 export const deleteVehicle = (req, res) => {
   const id = req.params.id;
+  console.log(id);
   vehicleModel
     .deleteOne({ _id: id })
     .then((data) => {
