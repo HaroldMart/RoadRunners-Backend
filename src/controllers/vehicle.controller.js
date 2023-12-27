@@ -77,9 +77,8 @@ export const searchByBrand = (req, res) => {
 };
 
 export const postVehicle = (req, res) => {
-  let vehicle = vehicleModel();
+  const vehicle = vehicleModel();
 
-  vehicle.portrait = req.file,
   vehicle.owner = req.body.owner;
   vehicle.owner_email = req.body.owner_email;
   vehicle.brand = req.body.brand;
@@ -90,54 +89,50 @@ export const postVehicle = (req, res) => {
   vehicle.year = req.body.year;
   vehicle.price = parseFloat(req.body.price);
   vehicle.location = req.body.location;
+  vehicle.portrait = {
+    data: req.files[0].buffer,
+    contentType: req.files[0].mimetype
+  };
   vehicle.images = req.files.map(file => ({
-      data: file.buffer,
-      contentType: file.mimetype,
+    data: file.buffer,
+    contentType: file.mimetype,
   }));
-  vehicle.save().then(data => {
-    console.log("Vehiculo Guardado");
-    responseMessage = "Guardado correctamente"
-    res.status(responseCode).send({ message: responseMessage });
-  }).catch(error => {
-    console.log(error);
-    handleErrorResponse(res, error);
-  });
+
+  console.log(vehicle)
+
+  vehicle.save()
+    .then(data => {
+      console.log("Vehiculo Guardado");
+      responseMessage = "Guardado correctamente"
+      res.status(responseCode).send({ message: responseMessage });
+    })
+    .catch(error => {
+      console.log(error);
+      handleErrorResponse(res, error);
+    });
 };
 
-export const putVehicle = (req, res) => {
+export const putVehicle = (req, res, next) => {
   const id = req.params.id;
-  const {
-    Owner_email,
-    Brand,
-    Type,
-    Model,
-    Condition,
-    Fuel,
-    Year,
-    Price,
-    Location,
-    Img
-  } = req.body;
-  vehicleModel
-    .updateOne(
-      { _id: id },
-      {
-        owner_email: Owner_email,
-        brand: Brand,
-        type: Type,
-        model: Model,
-        condition: Condition,
-        fuel: Fuel,
-        year: Year,
-        price: Price,
-        location: Location,
-        img: Img
-      }
-    )
+
+  const updates = {
+    owner: req.body.owner,
+    owner_email: req.body.owner_email,
+    brand: req.body.brand,
+    type: req.body.type,
+    model: req.body.model,
+    condition: req.body.condition,
+    fuel: req.body.fuel,
+    year: req.body.year,
+    price: req.body.price,
+    location: req.body.location
+  };
+
+  vehicleModel.findByIdAndUpdate(id, updates)
     .then((data) => {
       console.log("Vehiculo Actualizado");
-      responseMessage = "Actualizado correctamente"
-      res.status(responseCode).send({ message: responseMessage, data: data });
+      responseMessage = "Actualizado correctamente";
+      res.status(responseCode).send({ message: responseMessage });
     })
     .catch((error) => {
       console.log(error);
@@ -147,9 +142,8 @@ export const putVehicle = (req, res) => {
 
 export const deleteVehicle = (req, res) => {
   const id = req.params.id;
-  console.log(id);
-  vehicleModel
-    .deleteOne({ _id: id })
+
+  vehicleModel.findByIdAndDelete(id)
     .then((data) => {
       console.log("Vehiculo Eliminado");
       responseMessage = "Eliminado correctamente"

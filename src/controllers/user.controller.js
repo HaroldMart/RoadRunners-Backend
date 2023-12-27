@@ -7,8 +7,8 @@ const getToken = async () => {
     const options = {
         headers: { "content-type": `application/json` },
         body: `{
-            "client_id":"HoXZocrV0jYJ0L2BtbXJT9UQtMDT8LsC",
-            "client_secret":"k5UB4SDa7h0WaU32PoOsOog12JDpNFaKL2Pj1JZGp-1AzvVW5GkudoZynQTbElao",
+            "client_id": ${process.env.CLIENTID},
+            "client_secret": ${process.env.SECRET},
             "audience":"https://dev-3f45fsqiwdpfl2ds.us.auth0.com/api/v2/",
             "grant_type":"client_credentials"
         }`

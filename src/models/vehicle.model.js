@@ -1,6 +1,6 @@
-import { Schema, model } from "mongoose";
+import mongoose from "mongoose";
 
-const vehicles = new Schema({
+const vehicle = new mongoose.Schema({
   portrait: {
     data: Buffer,
     contentType: String
@@ -23,4 +23,6 @@ const vehicles = new Schema({
   ],
 });
 
-export default model("cars", vehicles);
+const vehicleModel = mongoose.model("cars", vehicle);
+
+export default vehicleModel;
