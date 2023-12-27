@@ -17,12 +17,12 @@ vehicleRoutes.get("/brand/:brand?", (req, res) => {
   searchByBrand(req, res);
 });
 
-vehicleRoutes.post("/insert", checkToken, upload.fields([{name: 'images', maxCount: 7},{name: 'portrait', maxCount: 1}]), (req, res, next) => {
-  postVehicle(req, res, next);
+vehicleRoutes.post("/insert", checkToken, upload.array('images',7), (req, res) => {
+  postVehicle(req, res);
 });
 
-vehicleRoutes.put("/update/:id", checkToken, (req, res) => {
-  putVehicle(req, res);
+vehicleRoutes.put("/update/:id", checkToken, (req, res, next) => {
+  putVehicle(req, res, next);
 });
 
 vehicleRoutes.delete("/delete/:id", checkToken, (req, res) => {
