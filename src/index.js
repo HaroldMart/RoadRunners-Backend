@@ -12,7 +12,7 @@ const URI = process.env.URI;
 const LOCAL = process.env.LOCAL;
 const FRONT_HOST = process.env.FRONT_HOST;
 const DEV_HOST = process.env.DEV_HOST; 
-const port = 2000 || 3000;
+const port = 3000;
 const app = express();
 
 app.use(cors({origin : [DEV_HOST, FRONT_HOST, LOCAL]}));
