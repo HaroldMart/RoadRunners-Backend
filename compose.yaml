@@ -12,5 +12,6 @@ services:
       DOMAIN: '${DOMAIN}'
       CLIENTID: '${CLIENTID}'
       SECRET: '${SECRET}'
+      SINGINSECRET: '${SINGINSECRET}'
     ports:
       - 3000:3000

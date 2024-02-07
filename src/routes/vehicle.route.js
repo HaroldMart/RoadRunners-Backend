@@ -1,7 +1,7 @@
 import { listVehicles, getVehicle, searchByBrand, postVehicle, putVehicle, deleteVehicle } from '../controllers/vehicle.controller.js';
 import express from 'express';
 import upload from '../middlewares/upload.js';
-import { checkToken } from '../middlewares/auth0.js';
+import checkToken from '../middlewares/auth0.js';
 
 const vehicleRoutes = express.Router();
 
