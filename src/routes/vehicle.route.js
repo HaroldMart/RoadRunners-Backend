@@ -1,20 +1,16 @@
-import { listVehicles, getVehicle, searchByBrand, postVehicle, putVehicle, deleteVehicle } from '../controllers/vehicle.controller.js';
+import { listVehicles, getVehicle, postVehicle, putVehicle, deleteVehicle } from '../controllers/vehicle.controller.js';
 import express from 'express';
 import upload from '../middlewares/upload.js';
-import { checkToken } from '../middlewares/auth0.js';
+import checkToken from '../middlewares/auth0.js';
 
 const vehicleRoutes = express.Router();
 
 vehicleRoutes.get("/", (req, res) => {
-  listVehicles(res);
+  listVehicles(req, res);
 });
 
 vehicleRoutes.get("/:id", (req, res) => {
   getVehicle(req, res);
-});
-
-vehicleRoutes.get("/brand/:brand?", (req, res) => {
-  searchByBrand(req, res);
 });
 
 vehicleRoutes.post("/insert", checkToken, upload.array('images',7), (req, res) => {

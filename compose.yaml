@@ -1,0 +1,17 @@
+# https://github.com/docker/awesome-compose
+version: '1.0'
+services:
+  app:
+    build:
+      context: .
+    environment:
+      NODE_ENV: production
+      URI: '${URI}'
+      DEV_HOST: '${DEV_HOST}'
+      FRONT_HOST: '${FRONT_HOST}'
+      DOMAIN: '${DOMAIN}'
+      CLIENTID: '${CLIENTID}'
+      SECRET: '${SECRET}'
+      SINGINSECRET: '${SINGINSECRET}'
+    ports:
+      - 3000:3000

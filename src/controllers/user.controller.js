@@ -9,12 +9,12 @@ const getToken = async () => {
         body: `{
             "client_id": ${process.env.CLIENTID},
             "client_secret": ${process.env.SECRET},
-            "audience":"https://dev-3f45fsqiwdpfl2ds.us.auth0.com/api/v2/",
+            "audience":"${process.env.DOMAIN}api/v2/",
             "grant_type":"client_credentials"
         }`
     };
     try {
-        const response = await fetch('https://dev-3f45fsqiwdpfl2ds.us.auth0.com/oauth/token', {
+        const response = await fetch(`${process.env.DOMAIN}oauth/token`, {
             method: 'post',
             body: options.body,
             headers: options.headers
