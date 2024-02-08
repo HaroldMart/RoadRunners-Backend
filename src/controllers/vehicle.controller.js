@@ -36,12 +36,25 @@ const handleErrorResponse = (res, error) => {
   res.status(errorCode).send({ message: errorMessage, error: error });
 }
 
-export const listVehicles = (res) => {
+export const listVehicles = (req, res) => {
+  const filters = req.query;
+
   vehicleModel
     .find()
     .select('-images')
     .then((data) => {
-      res.status(responseCode).json(data);
+      if (filters) {
+        const vehicles = data.filter(vehicle => { 
+          let isValid = true; 
+          for (let key in filters) { 
+            isValid = isValid && vehicle[key] == filters[key]; 
+          } 
+          return isValid; 
+        }); 
+        res.status(responseCode).json(vehicles); 
+      } else {
+        res.status(responseCode).json(data);
+      }
     })
     .catch((error) => {
       console.log(error);
@@ -54,19 +67,6 @@ export const getVehicle = (req, res) => {
   vehicleModel
     .findById(id)
     .select('-portrait')
-    .then((data) => {
-      res.status(responseCode).json(data);
-    })
-    .catch((error) => {
-      console.log(error);
-      handleErrorResponse(res, error);
-    });
-};
-
-export const searchByBrand = (req, res) => {
-  const brand = req.params.brand;
-  vehicleModel
-    .find({ brand: brand })
     .then((data) => {
       res.status(responseCode).json(data);
     })
@@ -98,13 +98,10 @@ export const postVehicle = (req, res) => {
     contentType: file.mimetype,
   }));
 
-  console.log(vehicle)
-
   vehicle.save()
     .then(data => {
       console.log("Vehiculo Guardado");
-      responseMessage = "Guardado correctamente"
-      res.status(responseCode).send({ message: responseMessage });
+      res.status(responseCode).send({ message: "Guardado correctamente" });
     })
     .catch(error => {
       console.log(error);
@@ -130,9 +127,9 @@ export const putVehicle = (req, res, next) => {
 
   vehicleModel.findByIdAndUpdate(id, updates)
     .then((data) => {
+      console.log(req.body);
       console.log("Vehiculo Actualizado");
-      responseMessage = "Actualizado correctamente";
-      res.status(responseCode).send({ message: responseMessage });
+      res.status(responseCode).send({ message: "Actualizado correctamente" });
     })
     .catch((error) => {
       console.log(error);

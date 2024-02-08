@@ -1,0 +1,17 @@
+# https://github.com/docker/awesome-compose
+version: '1.0'
+services:
+  app:
+    container_name: roadrunners-api
+    build:
+      context: .
+    environment:
+      NODE_ENV: production
+      URI: '${URI}'
+      DEV_HOST: '${DEV_HOST}'
+      FRONT_HOST: '${FRONT_HOST}'
+      A_DOMAIN: '${A_DOMAIN}'
+      A_CLIENTID: '${A_CLIENTID}'
+      A_SECRET: '${A_SECRET}'
+    ports:
+      - 3000:3000

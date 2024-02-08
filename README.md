@@ -9,16 +9,34 @@ This is a simple API made in Express, with the basic methods to show, add, edit 
 - mongoose
 - morgan
 - nodemon
+- node-fetch
+- multer
+- cors
+- dotenv
+- express-oauth2-jwt-bearer
 
-### Install Dependencies
+## Usage
+
+Firs run `npm install` or use docker instead. 
+
+Then `npm start` or `npm run dev` if you want to use dev mode, you can run the API with the port specified in .env file, in this example port 3000.
+
+### Docker
+
 
 ```
-npm install 
+docker compose up --build
 ```
 
-### Endpoints
+if you don't want to see logs after building use:
 
-With the `npm run dev` command you can run the API at port 2000, here are the endpoints:
+```
+docker compose up --build -d
+```
+
+## Endpoints
+
+here are the endpoints:
 
 ##### Showing all data
 
