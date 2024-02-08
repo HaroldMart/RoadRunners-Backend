@@ -47,7 +47,6 @@ export const listVehicles = (req, res) => {
         const vehicles = data.filter(vehicle => { 
           let isValid = true; 
           for (let key in filters) { 
-            console.log(key, vehicle[key], filters[key]); 
             isValid = isValid && vehicle[key] == filters[key]; 
           } 
           return isValid; 
