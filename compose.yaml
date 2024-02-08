@@ -9,8 +9,8 @@ services:
       URI: '${URI}'
       DEV_HOST: '${DEV_HOST}'
       FRONT_HOST: '${FRONT_HOST}'
-      DOMAIN: '${A_DOMAIN}'
-      CLIENTID: '${A_CLIENTID}'
-      SECRET: '${A_SECRET}'
+      A_DOMAIN: '${A_DOMAIN}'
+      A_CLIENTID: '${A_CLIENTID}'
+      A_SECRET: '${A_SECRET}'
     ports:
       - 3000:3000
