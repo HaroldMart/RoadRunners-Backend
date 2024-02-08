@@ -98,13 +98,10 @@ export const postVehicle = (req, res) => {
     contentType: file.mimetype,
   }));
 
-  console.log(vehicle)
-
   vehicle.save()
     .then(data => {
       console.log("Vehiculo Guardado");
-      responseMessage = "Guardado correctamente"
-      res.status(responseCode).send({ message: responseMessage });
+      res.status(responseCode).send({ message: "Guardado correctamente" });
     })
     .catch(error => {
       console.log(error);
@@ -130,9 +127,9 @@ export const putVehicle = (req, res, next) => {
 
   vehicleModel.findByIdAndUpdate(id, updates)
     .then((data) => {
+      console.log(req.body);
       console.log("Vehiculo Actualizado");
-      responseMessage = "Actualizado correctamente";
-      res.status(responseCode).send({ message: responseMessage });
+      res.status(responseCode).send({ message: "Actualizado correctamente" });
     })
     .catch((error) => {
       console.log(error);
