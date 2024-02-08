@@ -7,14 +7,14 @@ const getToken = async () => {
     const options = {
         headers: { "content-type": `application/json` },
         body: `{
-            "client_id": ${process.env.CLIENTID},
-            "client_secret": ${process.env.SECRET},
-            "audience":"${process.env.DOMAIN}api/v2/",
+            "client_id": ${process.env.A_CLIENTID},
+            "client_secret": ${process.env.A_SECRET},
+            "audience":"${process.env.A_DOMAIN}api/v2/",
             "grant_type":"client_credentials"
         }`
     };
     try {
-        const response = await fetch(`${process.env.DOMAIN}oauth/token`, {
+        const response = await fetch(`${process.env.A_DOMAIN}oauth/token`, {
             method: 'post',
             body: options.body,
             headers: options.headers
@@ -33,7 +33,7 @@ const getUserInfo = async (req, res) => {
     const uid = req.params.uid;
 
     try {
-        const response = await fetch(`${process.env.DOMAIN}api/v2/users/${uid}`, {
+        const response = await fetch(`${process.env.A_DOMAIN}api/v2/users/${uid}`, {
             method: "GET",
             headers: { "authorization": `Bearer ${token}` },
         });
@@ -54,7 +54,7 @@ const editUser = async (req, res) => {
         "given_name": req.body.name,
         "family_name": req.body.lastName
     }
-    const response = await fetch(`${process.env.DOMAIN}api/v2/users/${uid}`, {
+    const response = await fetch(`${process.env.A_DOMAIN}api/v2/users/${uid}`, {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json",

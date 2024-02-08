@@ -4,8 +4,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const checkToken = auth({
+    issuerBaseURL: process.env.A_DOMAIN,
     audience: 'https://roadrunners-api/',
-    issuerBaseURL: process.env.DOMAIN,
     tokenSigningAlg: 'RS256'
 });
 
