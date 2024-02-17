@@ -6,7 +6,6 @@ const vehicle = new mongoose.Schema({
     contentType: String
   },
   owner: String,
-  owner_email: String,
   brand: String,
   type: String,
   model: String,
@@ -16,11 +15,12 @@ const vehicle = new mongoose.Schema({
   price: Number,
   location: String,
   seller: {
+    picture: String,
     name: String,
-    tel: String,
+    email: String,
+    phone: String,
     whatsapp: String,
     telegram: String,
-    email: String
   },
   images: [
     {
