@@ -79,6 +79,14 @@ export const getVehicle = (req, res) => {
 export const postVehicle = (req, res) => {
   const vehicle = vehicleModel();
 
+  const dataSeller = {
+    name: req.body.nameSeller,
+    tel: req.body.telSeller,
+    whatsapp: req.body.whatsappSeller,
+    telegram: req.body.telegramSeller,
+    email: req.body.emailSeller,
+  }
+
   vehicle.owner = req.body.owner;
   vehicle.owner_email = req.body.owner_email;
   vehicle.brand = req.body.brand;
@@ -97,6 +105,7 @@ export const postVehicle = (req, res) => {
     data: file.buffer,
     contentType: file.mimetype,
   }));
+  vehicle.seller = dataSeller;
 
   vehicle.save()
     .then(data => {
@@ -112,6 +121,14 @@ export const postVehicle = (req, res) => {
 export const putVehicle = (req, res, next) => {
   const id = req.params.id;
 
+  const sellerInfo = {
+    name: req.body.nameSeller,
+    tel: req.body.telSeller,
+    whatsapp: req.body.whatsappSeller,
+    telegram: req.body.telegramSeller,
+    email: req.body.emailSeller,
+  }
+
   const updates = {
     owner: req.body.owner,
     owner_email: req.body.owner_email,
@@ -122,7 +139,8 @@ export const putVehicle = (req, res, next) => {
     fuel: req.body.fuel,
     year: req.body.year,
     price: req.body.price,
-    location: req.body.location
+    location: req.body.location,
+    seller: sellerInfo
   };
 
   vehicleModel.findByIdAndUpdate(id, updates)
