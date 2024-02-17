@@ -15,6 +15,13 @@ const vehicle = new mongoose.Schema({
   year: String,
   price: Number,
   location: String,
+  seller: {
+    name: String,
+    tel: String,
+    whatsapp: String,
+    telegram: String,
+    email: String
+  },
   images: [
     {
       data: Buffer,
