@@ -80,11 +80,12 @@ export const postVehicle = (req, res) => {
   const vehicle = vehicleModel();
 
   const dataSeller = {
-    name: req.body.nameSeller,
-    tel: req.body.telSeller,
-    whatsapp: req.body.whatsappSeller,
-    telegram: req.body.telegramSeller,
-    email: req.body.emailSeller,
+    picture: req.body.picture,
+    name: req.body.name,
+    email: req.body.email,
+    phone: req.body.phone,
+    whatsapp: req.body.whatsapp,
+    telegram: req.body.telegram,
   }
 
   vehicle.owner = req.body.owner;
@@ -97,6 +98,7 @@ export const postVehicle = (req, res) => {
   vehicle.year = req.body.year;
   vehicle.price = parseFloat(req.body.price);
   vehicle.location = req.body.location;
+  vehicle.seller = dataSeller;
   vehicle.portrait = {
     data: req.files[0].buffer,
     contentType: req.files[0].mimetype
@@ -105,7 +107,6 @@ export const postVehicle = (req, res) => {
     data: file.buffer,
     contentType: file.mimetype,
   }));
-  vehicle.seller = dataSeller;
 
   vehicle.save()
     .then(data => {
