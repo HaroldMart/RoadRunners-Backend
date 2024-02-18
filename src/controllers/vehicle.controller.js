@@ -79,6 +79,15 @@ export const getVehicle = (req, res) => {
 export const postVehicle = (req, res) => {
   const vehicle = vehicleModel();
 
+  const dataSeller = {
+    picture: req.body.picture,
+    name: req.body.name,
+    email: req.body.email,
+    phone: req.body.phone,
+    whatsapp: req.body.whatsapp,
+    telegram: req.body.telegram,
+  }
+
   vehicle.owner = req.body.owner;
   vehicle.owner_email = req.body.owner_email;
   vehicle.brand = req.body.brand;
@@ -89,6 +98,7 @@ export const postVehicle = (req, res) => {
   vehicle.year = req.body.year;
   vehicle.price = parseFloat(req.body.price);
   vehicle.location = req.body.location;
+  vehicle.seller = dataSeller;
   vehicle.portrait = {
     data: req.files[0].buffer,
     contentType: req.files[0].mimetype
@@ -112,6 +122,14 @@ export const postVehicle = (req, res) => {
 export const putVehicle = (req, res, next) => {
   const id = req.params.id;
 
+  const sellerInfo = {
+    name: req.body.nameSeller,
+    tel: req.body.telSeller,
+    whatsapp: req.body.whatsappSeller,
+    telegram: req.body.telegramSeller,
+    email: req.body.emailSeller,
+  }
+
   const updates = {
     owner: req.body.owner,
     owner_email: req.body.owner_email,
@@ -122,7 +140,8 @@ export const putVehicle = (req, res, next) => {
     fuel: req.body.fuel,
     year: req.body.year,
     price: req.body.price,
-    location: req.body.location
+    location: req.body.location,
+    seller: sellerInfo
   };
 
   vehicleModel.findByIdAndUpdate(id, updates)
