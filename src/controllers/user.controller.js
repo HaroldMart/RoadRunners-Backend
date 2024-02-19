@@ -6,24 +6,24 @@ dotenv.config();
 const getToken = async () => {
     const options = {
         headers: { "content-type": `application/json` },
-        body: `{
-            "client_id": ${process.env.A_CLIENTID},
-            "client_secret": ${process.env.A_SECRET},
-            "audience":"${process.env.A_DOMAIN}api/v2/",
-            "grant_type":"client_credentials"
-        }`
+        body: {
+            client_id: process.env.A_CLIENTID,
+            client_secret: process.env.A_SECRET,
+            audience: `${process.env.A_DOMAIN}/api/v2/`,
+            grant_type: "client_credentials"
+        }
     };
     try {
-        const response = await fetch(`${process.env.A_DOMAIN}oauth/token`, {
+        const response = await fetch(`${process.env.A_DOMAIN}/oauth/token`, {
             method: 'post',
-            body: options.body,
+            body: JSON.stringify(options.body),
             headers: options.headers
         });
         const data = await response.json();
         return data.access_token;
     } catch (error) {
         console.error(error);
-        const errorBody = await error.response.text();
+        const errorBody = await error.response;
         console.error(`Error body: ${errorBody}`);
     }
 };
@@ -33,7 +33,7 @@ const getUserInfo = async (req, res) => {
     const uid = req.params.uid;
 
     try {
-        const response = await fetch(`${process.env.A_DOMAIN}api/v2/users/${uid}`, {
+        const response = await fetch(`${process.env.A_DOMAIN}/api/v2/users/${uid}`, {
             method: "GET",
             headers: { "authorization": `Bearer ${token}` },
         });
@@ -54,7 +54,7 @@ const editUser = async (req, res) => {
         "given_name": req.body.name,
         "family_name": req.body.lastName
     }
-    const response = await fetch(`${process.env.A_DOMAIN}api/v2/users/${uid}`, {
+    const response = await fetch(`${process.env.A_DOMAIN}/api/v2/users/${uid}`, {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json",
@@ -64,7 +64,6 @@ const editUser = async (req, res) => {
         body: JSON.stringify(body)
     });
     const data = await response.json();
-    console.log(data);
     switch (data.statusCode) {
         case 200:
             res.status(200).send(data);
